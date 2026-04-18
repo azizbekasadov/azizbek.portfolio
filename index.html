@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azizbek Asadov — Mobile Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --apple-blue: #0071e3;
+  --apple-blue-h: #0077ed;
+  --apple-link: #2997ff;
+}
+[data-theme="dark"] {
+  --bg:      #000;
+  --bg2:     #1d1d1f;
+  --bg3:     #2d2d2f;
+  --t1:      #f5f5f7;
+  --t2:      #a1a1a6;
+  --t3:      #6e6e73;
+  --t4:      #3d3d3f;
+  --border:  rgba(255,255,255,0.1);
+  --border2: rgba(255,255,255,0.18);
+  --gbg:     rgba(29,29,31,0.78);
+  --gshine:  rgba(255,255,255,0.1);
+  --navbg:   rgba(0,0,0,0.85);
+  --tagbg:   rgba(255,255,255,0.07);
+  --tagt:    #a1a1a6;
+  --pillbg:  rgba(41,151,255,0.14);
+  --pillt:   #2997ff;
+  --herobg:  #000;
+  --altbg:   #111113;
+  --shadow:  rgba(0,0,0,0.55);
+}
+[data-theme="light"] {
+  --bg:      #fff;
+  --bg2:     #f5f5f7;
+  --bg3:     #e8e8ed;
+  --t1:      #1d1d1f;
+  --t2:      #6e6e73;
+  --t3:      #a1a1a6;
+  --t4:      #d2d2d7;
+  --border:  rgba(0,0,0,0.09);
+  --border2: rgba(0,0,0,0.16);
+  --gbg:     rgba(255,255,255,0.8);
+  --gshine:  rgba(255,255,255,0.98);
+  --navbg:   rgba(255,255,255,0.85);
+  --tagbg:   rgba(0,0,0,0.055);
+  --tagt:    #6e6e73;
+  --pillbg:  rgba(0,113,227,0.09);
+  --pillt:   #0071e3;
+  --herobg:  #fff;
+  --altbg:   #f5f5f7;
+  --shadow:  rgba(0,0,0,0.1);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,'Inter',sans-serif;
+  background:var(--bg);color:var(--t1);
+  line-height:1.6;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s,color .3s;
+}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--apple-blue);border-radius:2px}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:52px;display:flex;align-items:center;
+  padding:0 clamp(16px,4vw,44px);
+  background:var(--navbg);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:.5px solid var(--border);
+  transition:background .3s;
+}
+.nl{font-size:1.05rem;font-weight:600;letter-spacing:-.025em;
+  color:var(--t1);text-decoration:none;flex-shrink:0}
+.nav-links{display:flex;list-style:none;gap:2px;margin:0 auto;padding:0 12px}
+.nav-links a{display:block;padding:6px 13px;font-size:.8rem;font-weight:400;
+  color:var(--t2);text-decoration:none;border-radius:20px;
+  transition:color .15s,background .15s}
+.nav-links a:hover,.nav-links a.act{color:var(--t1);background:var(--tagbg)}
+.nr{display:flex;align-items:center;gap:10px;flex-shrink:0}
+
+.tt{width:44px;height:24px;border-radius:12px;background:var(--bg3);
+  border:none;cursor:pointer;position:relative;transition:background .3s;flex-shrink:0}
+.tt::after{content:'';position:absolute;top:2px;left:2px;
+  width:20px;height:20px;border-radius:50%;background:var(--t1);
+  transition:transform .3s cubic-bezier(.4,0,.2,1),background .3s;
+  box-shadow:0 1px 4px rgba(0,0,0,.3)}
+[data-theme="light"] .tt::after{transform:translateX(20px);background:#1d1d1f}
+.te{position:absolute;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none;line-height:1}
+.tm{right:5px}.ts{left:5px}
+
+.hb{display:none;flex-direction:column;gap:4px;cursor:pointer;
+  padding:6px;background:none;border:none}
+.hb span{display:block;width:20px;height:1px;background:var(--t1);
+  border-radius:1px;transition:transform .25s,opacity .25s}
+.hb.open span:nth-child(1){transform:rotate(45deg) translate(3px,3px)}
+.hb.open span:nth-child(2){opacity:0}
+.hb.open span:nth-child(3){transform:rotate(-45deg) translate(3px,-3px)}
+
+.mob{display:none;position:fixed;top:52px;left:0;right:0;z-index:998;
+  background:var(--navbg);backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:.5px solid var(--border);padding:8px 20px 16px}
+.mob.open{display:block}
+.mob a{display:block;padding:13px 0;font-size:.97rem;color:var(--t2);
+  text-decoration:none;border-bottom:.5px solid var(--border);transition:color .15s}
+.mob a:hover{color:var(--t1)}
+
+/* HERO */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:120px clamp(20px,8vw,80px) 80px;
+  background:var(--herobg);text-align:center;
+  position:relative;overflow:hidden;
+}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none}
+.oa{width:700px;height:700px;top:-280px;left:-180px;
+  background:radial-gradient(circle,rgba(0,113,227,.1) 0%,transparent 65%);
+  animation:hfl 14s ease-in-out infinite}
+.ob{width:500px;height:500px;bottom:-160px;right:-100px;
+  background:radial-gradient(circle,rgba(41,151,255,.08) 0%,transparent 65%);
+  animation:hfl 14s ease-in-out infinite;animation-delay:-7s}
+@keyframes hfl{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-40px) scale(1.05)}}
+
+.eyebrow-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:5px 14px 5px 10px;
+  background:var(--gbg);border:.5px solid var(--border2);
+  border-radius:20px;font-size:.76rem;color:var(--t2);
+  backdrop-filter:blur(16px);margin-bottom:28px;
+}
+.dot{width:6px;height:6px;border-radius:50%;
+  background:#30d158;box-shadow:0 0 6px rgba(48,209,88,.8);
+  animation:pd 2s ease-in-out infinite}
+@keyframes pd{0%,100%{opacity:1}50%{opacity:.4}}
+
+.hero-name{
+  font-size:clamp(3.5rem,9vw,7rem);font-weight:700;
+  letter-spacing:-.04em;line-height:.9;color:var(--t1);margin-bottom:16px;
+}
+.hero-sub{font-size:clamp(1rem,2.2vw,1.35rem);font-weight:300;
+  color:var(--t2);letter-spacing:-.01em;margin-bottom:20px}
+.hero-p{max-width:540px;margin:0 auto 40px;font-size:.97rem;
+  color:var(--t2);line-height:1.72;font-weight:300}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+.btn-b{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;
+  background:var(--apple-blue);color:#fff;border-radius:980px;
+  font-size:.88rem;font-weight:500;text-decoration:none;border:none;
+  cursor:pointer;transition:background .15s,transform .15s;font-family:inherit;
+  letter-spacing:-.01em}
+.btn-b:hover{background:var(--apple-blue-h);transform:scale(1.01)}
+.btn-o{display:inline-flex;align-items:center;gap:7px;padding:11px 24px;
+  background:transparent;color:var(--apple-link);
+  border:1px solid var(--border2);border-radius:980px;
+  font-size:.88rem;font-weight:400;text-decoration:none;cursor:pointer;
+  transition:background .15s,transform .15s;font-family:inherit}
+.btn-o:hover{background:var(--tagbg);transform:scale(1.01)}
+
+.hero-stats{
+  display:flex;gap:40px;justify-content:center;
+  margin-top:60px;flex-wrap:wrap;
+}
+.stat{text-align:center}
+.stat-n{font-size:2.2rem;font-weight:700;letter-spacing:-.04em;
+  color:var(--t1);line-height:1}
+.stat-l{font-size:.75rem;color:var(--t3);margin-top:5px}
+.sep{width:1px;background:var(--border);align-self:stretch}
+
+/* SECTION */
+.sec{position:relative;z-index:1}
+.si{max-width:1080px;margin:0 auto;
+  padding:clamp(64px,10vh,96px) clamp(20px,5vw,44px)}
+.altbg{background:var(--altbg)}
+
+.ey{font-size:.7rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--apple-link);
+  margin-bottom:12px;display:block}
+.sh{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;
+  letter-spacing:-.035em;line-height:1.0;color:var(--t1);margin-bottom:14px}
+.ss{font-size:.97rem;color:var(--t2);font-weight:300;max-width:520px;line-height:1.72}
+
+/* GLASS CARD */
+.gc{
+  background:var(--gbg);border:.5px solid var(--border);
+  border-radius:20px;
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  position:relative;overflow:hidden;
+  transition:border-color .2s,transform .2s,box-shadow .2s;
+}
+.gc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:.5px;
+  background:linear-gradient(90deg,transparent,var(--gshine),transparent);
+}
+.gc:hover{border-color:var(--border2);transform:translateY(-2px);
+  box-shadow:0 8px 30px var(--shadow)}
+
+/* ABOUT */
+.about-g{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;
+  align-items:start;margin-top:48px}
+.about-t p{color:var(--t2);line-height:1.78;margin-bottom:16px;font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.ch{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;
+  background:var(--tagbg);border:.5px solid var(--border);
+  border-radius:20px;font-size:.8rem;color:var(--t2)}
+
+.info-card{padding:0;overflow:hidden}
+.ir{display:flex;justify-content:space-between;align-items:center;
+  padding:13px 20px;gap:12px;border-bottom:.5px solid var(--border)}
+.ir:last-child{border-bottom:none}
+.ik{font-size:.72rem;color:var(--t3);text-transform:uppercase;
+  letter-spacing:.07em;flex-shrink:0}
+.iv{font-size:.86rem;color:var(--t1);text-align:right}
+.iv a{color:var(--apple-link);text-decoration:none}
+.lps{display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end}
+.lp{padding:3px 9px;background:var(--pillbg);color:var(--pillt);
+  border-radius:12px;font-size:.7rem;font-weight:500}
+
+/* SKILLS */
+.sk-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(256px,1fr));
+  gap:14px;margin-top:48px}
+.sk-card{padding:20px}
+.sk-ico{font-size:22px;margin-bottom:12px;display:block}
+.sk-t{font-size:.86rem;font-weight:600;color:var(--t1);margin-bottom:10px}
+.sk-tags{display:flex;flex-wrap:wrap;gap:5px}
+.st{padding:3px 9px;background:var(--tagbg);border:.5px solid var(--border);
+  border-radius:12px;font-size:.7rem;color:var(--tagt)}
+
+/* PROJECTS */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:32px}
+.tab{padding:7px 16px;border-radius:20px;font-size:.78rem;font-weight:400;
+  color:var(--t2);background:var(--tagbg);border:.5px solid var(--border);
+  cursor:pointer;transition:all .15s;font-family:inherit}
+.tab.active{background:var(--apple-blue);color:#fff;border-color:transparent}
+
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));
+  gap:14px}
+
+.pc{padding:18px;display:flex;flex-direction:column;gap:12px}
+.pt{display:flex;align-items:flex-start;gap:13px}
+
+/* APP ICON — iOS style */
+.ai{
+  width:62px;height:62px;border-radius:13.95px;flex-shrink:0;
+  overflow:hidden;background:var(--bg3);border:.5px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:24px;
+  position:relative;
+}
+.ai img{width:100%;height:100%;object-fit:cover;border-radius:13.95px;
+  display:block}
+.ai.ld::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
+  background-size:200% 100%;animation:shim 1.4s infinite;
+}
+@keyframes shim{from{background-position:-200% 0}to{background-position:200% 0}}
+
+.pm{flex:1;min-width:0}
+.pco{font-size:.68rem;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--t3);margin-bottom:3px}
+.pn{font-size:.97rem;font-weight:600;letter-spacing:-.02em;
+  color:var(--t1);line-height:1.25}
+.pd{font-size:.81rem;color:var(--t2);line-height:1.65}
+.pf{display:flex;align-items:center;justify-content:space-between;
+  gap:8px;flex-wrap:wrap;margin-top:auto}
+.ptags{display:flex;flex-wrap:wrap;gap:4px}
+.ptag{padding:3px 8px;background:var(--pillbg);color:var(--pillt);
+  border-radius:10px;font-size:.67rem;font-weight:500}
+.sl{display:inline-flex;align-items:center;gap:4px;
+  font-size:.74rem;color:var(--apple-link);text-decoration:none;
+  white-space:nowrap;transition:opacity .15s}
+.sl:hover{opacity:.7}
+.sl svg{width:11px;height:11px}
+
+/* OSS card */
+.oc{padding:18px}
+.oh{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+.oi{width:38px;height:38px;border-radius:9px;background:var(--tagbg);
+  display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.on{font-size:.92rem;font-weight:600;color:var(--t1)}
+.ol{font-size:.7rem;color:var(--t3)}
+.od{font-size:.8rem;color:var(--t2);line-height:1.62;margin-bottom:11px}
+.olink{display:inline-flex;align-items:center;gap:4px;
+  font-size:.76rem;color:var(--apple-link);text-decoration:none}
+
+/* EXPERIENCE */
+.timeline{margin-top:48px;display:flex;flex-direction:column;gap:16px}
+.exp{padding:22px}
+.eh{display:flex;justify-content:space-between;align-items:flex-start;
+  flex-wrap:wrap;gap:8px;margin-bottom:5px}
+.eco{font-size:1.05rem;font-weight:700;letter-spacing:-.02em;color:var(--t1)}
+.epe{font-size:.72rem;color:var(--t3);background:var(--tagbg);
+  padding:4px 10px;border-radius:12px;white-space:nowrap}
+.er{font-size:.82rem;font-weight:500;color:var(--apple-link);margin-bottom:2px}
+.eloc{font-size:.76rem;color:var(--t3);margin-bottom:14px}
+.el{list-style:none;display:flex;flex-direction:column;gap:7px}
+.el li{display:flex;gap:9px;font-size:.83rem;color:var(--t2);line-height:1.65}
+.el li::before{content:'↳';color:var(--apple-blue);flex-shrink:0;font-size:.88rem;margin-top:1px}
+
+/* EDUCATION */
+.edu-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(256px,1fr));
+  gap:14px;margin-top:48px}
+.educard{padding:20px}
+.edu-em{font-size:26px;margin-bottom:13px;display:block}
+.edu-d{font-size:.92rem;font-weight:600;color:var(--t1);line-height:1.3;margin-bottom:5px}
+.edu-i{font-size:.8rem;color:var(--apple-link);font-weight:500;margin-bottom:3px}
+.edu-p{font-size:.73rem;color:var(--t3)}
+
+/* CONTACT */
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  align-items:start;margin-top:48px}
+.cblurb{font-size:.95rem;color:var(--t2);line-height:1.75;
+  margin-bottom:26px;font-weight:300}
+.clinks{display:flex;flex-direction:column;gap:10px}
+.cl{display:flex;align-items:center;gap:13px;padding:13px 17px;
+  text-decoration:none;color:var(--t1);transition:transform .15s}
+.cl:hover{transform:translateX(4px)}
+.cl:hover .clabel{color:var(--apple-link)}
+.cico{width:36px;height:36px;border-radius:9px;background:var(--tagbg);
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.clabel{font-size:.86rem;font-weight:500;transition:color .15s}
+.csub{font-size:.72rem;color:var(--t3)}
+
+.cform{padding:24px}
+.cform h3{font-size:1.05rem;font-weight:600;margin-bottom:18px;letter-spacing:-.02em}
+.fg{margin-bottom:10px}
+.fg label{display:block;font-size:.73rem;color:var(--t3);margin-bottom:4px;letter-spacing:.04em}
+.fg input,.fg textarea{
+  width:100%;padding:9px 13px;
+  background:var(--tagbg);border:.5px solid var(--border);
+  border-radius:10px;color:var(--t1);font-family:inherit;font-size:.86rem;
+  outline:none;transition:border-color .15s;
+}
+.fg input:focus,.fg textarea:focus{border-color:var(--apple-blue)}
+.fg textarea{height:88px;resize:vertical}
+.sbtn{width:100%;padding:11px;border:none;border-radius:980px;
+  background:var(--apple-blue);color:#fff;font-family:inherit;
+  font-size:.88rem;font-weight:500;cursor:pointer;
+  transition:background .15s,transform .15s}
+.sbtn:hover{background:var(--apple-blue-h);transform:scale(1.01)}
+
+footer{text-align:center;padding:26px 20px;
+  border-top:.5px solid var(--border);
+  font-size:.76rem;color:var(--t3);line-height:1.8}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.rv.in{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hb{display:flex}
+  .about-g,.cg{grid-template-columns:1fr}
+  .hero-stats{gap:20px}
+  .sep{display:none}
+}
+@media(max-width:480px){
+  .pg,.edu-g,.sk-g{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nl">Azizbek Asadov</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nr">
+    <button class="tt" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="te tm">🌙</span><span class="te ts">☀️</span>
+    </button>
+    <button class="hb" onclick="toggleMob()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#skills" onclick="closeMob()">Skills</a>
+  <a href="#projects" onclick="closeMob()">Projects</a>
+  <a href="#experience" onclick="closeMob()">Experience</a>
+  <a href="#education" onclick="closeMob()">Education</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="sec">
+  <div class="orb oa"></div><div class="orb ob"></div>
+  <div class="eyebrow-badge"><span class="dot"></span>Open to senior roles · Zurich, Switzerland 🇨🇭</div>
+  <h1 class="hero-name">Azizbek Asadov</h1>
+  <p class="hero-sub">Mobile Software Engineer &nbsp;·&nbsp; iOS &nbsp;·&nbsp; Android &nbsp;·&nbsp; Distributed Systems</p>
+  <p class="hero-p">6+ years building production iOS, macOS, Android, and backend systems for banking, insurance, and aviation — from 5.9M-user fintech apps to Apple Vision Pro spatial computing for airline crews.</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn-b">View Projects</a>
+    <a href="#contact" class="btn-o">Get in Touch</a>
+  </div>
+  <div class="hero-stats rv">
+    <div class="stat"><div class="stat-n">6+</div><div class="stat-l">Years Exp.</div></div>
+    <div class="sep"></div>
+    <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Apps Shipped</div></div>
+    <div class="sep"></div>
+    <div class="stat"><div class="stat-n">5.9M+</div><div class="stat-l">Monthly Users</div></div>
+    <div class="sep"></div>
+    <div class="stat"><div class="stat-n">$233K+</div><div class="stat-l">MRR Generated</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec altbg">
+  <div class="si">
+    <span class="ey">About</span>
+    <h2 class="sh rv">Engineer. Architect.<br>Creator.</h2>
+    <div class="about-g">
+      <div class="about-t rv">
+        <p>I'm a Mobile Software Engineer with 6+ years of experience building iOS, macOS (Apple Stack), Android and backend systems, APIs, and integration-heavy platforms in regulated industries including banking, insurance, and aviation.</p>
+        <p>Strong experience in Swift, Objective-C, Java/Kotlin (Spring Boot), REST APIs, AWS, Docker, and distributed system design, combined with hands-on work on real-time processing and system-level components in C++.</p>
+        <p>Currently at Helvetia Baloise Group in Zurich, designing and shipping full-stack features end-to-end — from Kotlin/Java Spring Boot APIs to SwiftUI and Kotlin Multiplatform mobile clients.</p>
+        <div class="chips">
+          <span class="ch">✈️ 5,500+ airline crew daily</span>
+          <span class="ch">🏦 5.9M+ banking users</span>
+          <span class="ch">🥽 Apple Vision Pro dev</span>
+          <span class="ch">🎓 M.Sc. AI/ML · ETH/UZH</span>
+          <span class="ch">🌍 5 languages spoken</span>
+          <span class="ch">🏂 Snowboarder · Hiker · Diver</span>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="gc info-card">
+          <div class="ir"><span class="ik">LinkedIn</span><span class="iv"><a href="https://linkedin.com/in/azizbek1402" target="_blank">azizbek1402</a></span></div>
+          <div class="ir"><span class="ik">GitHub</span><span class="iv"><a href="https://github.com/azizbekasadov" target="_blank">azizbekasadov</a></span></div>
+          <div class="ir" style="flex-direction:column;align-items:flex-start;gap:9px">
+            <span class="ik">Languages</span>
+            <div class="lps">
+              <span class="lp">English C1</span><span class="lp">German C1</span>
+              <span class="lp">Swiss German B2</span><span class="lp">Russian</span><span class="lp">Uzbek</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="sec">
+  <div class="si">
+    <span class="ey">Expertise</span>
+    <h2 class="sh rv">Technical Skills</h2>
+    <p class="ss rv">Across mobile, backend, cloud, and AI/ML — built on years of shipping in production.</p>
+    <div class="sk-g">
+      <div class="gc sk-card rv"><span class="sk-ico">📱</span><div class="sk-t">iOS / Apple Stack</div><div class="sk-tags"><span class="st">Swift</span><span class="st">SwiftUI</span><span class="st">UIKit</span><span class="st">Objective-C</span><span class="st">Objective-C++</span><span class="st">Combine</span><span class="st">CoreData</span><span class="st">Tuist</span><span class="st">SPM</span><span class="st">XCTest</span><span class="st">Alamofire</span><span class="st">SQLite</span></div></div>
+      <div class="gc sk-card rv"><span class="sk-ico">🥽</span><div class="sk-t">Spatial Computing</div><div class="sk-tags"><span class="st">Apple Vision Pro</span><span class="st">ARKit</span><span class="st">RealityKit</span><span class="st">Metal / Metal2</span><span class="st">OpenGL</span><span class="st">CoreBluetooth</span><span class="st">MPC</span><span class="st">Accelerate</span></div></div>
+      <div class="gc sk-card rv"><span class="sk-ico">🤖</span><div class="sk-t">Android & Cross-Platform</div><div class="sk-tags"><span class="st">Kotlin</span><span class="st">Java</span><span class="st">KMP / KMM</span><span class="st">Compose Multiplatform</span><span class="st">RxSwift</span><span class="st">Android TV</span><span class="st">StoreKit</span></div></div>
+      <div class="gc sk-card rv"><span class="sk-ico">⚙️</span><div class="sk-t">Backend & Integration</div><div class="sk-tags"><span class="st">Spring Boot</span><span class="st">REST APIs</span><span class="st">OpenAPI</span><span class="st">Microservices</span><span class="st">Distributed Systems</span><span class="st">WebSockets</span><span class="st">Protocol Buffers</span></div></div>
+      <div class="gc sk-card rv"><span class="sk-ico">☁️</span><div class="sk-t">Cloud & DevOps</div><div class="sk-tags"><span class="st">AWS EC2/S3/Lambda</span><span class="st">Docker</span><span class="st">Kubernetes</span><span class="st">CI/CD</span><span class="st">SonarQube</span><span class="st">Liquibase</span></div></div>
+      <div class="gc sk-card rv"><span class="sk-ico">🧠</span><div class="sk-t">AI / ML</div><div class="sk-tags"><span class="st">Seq-to-Seq Models</span><span class="st">Pose Estimation</span><span class="st">CoreML</span><span class="st">Sign Language</span><span class="st">HCI Analytics</span></div></div>
+      <div class="gc sk-card rv"><span class="sk-ico">🗄️</span><div class="sk-t">Databases</div><div class="sk-tags"><span class="st">PostgreSQL</span><span class="st">MySQL</span><span class="st">MongoDB</span><span class="st">SQLite</span><span class="st">CoreData</span><span class="st">Event-driven</span></div></div>
+      <div class="gc sk-card rv"><span class="sk-ico">🏗️</span><div class="sk-t">Architecture</div><div class="sk-tags"><span class="st">MVVM</span><span class="st">VIPER</span><span class="st">SOA</span><span class="st">TDD/BDD</span><span class="st">DDD</span><span class="st">Modular</span><span class="st">Scrum</span><span class="st">Agile</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec altbg">
+  <div class="si">
+    <span class="ey">Portfolio</span>
+    <h2 class="sh rv">Projects & Apps</h2>
+    <p class="ss rv">From regulated fintech to spatial computing — shipped across the App Store and beyond.</p>
+    <div style="margin-top:36px">
+      <div class="tabs">
+        <button class="tab active" onclick="filter('all',this)">All</button>
+        <button class="tab" onclick="filter('helvetia',this)">Helvetia</button>
+        <button class="tab" onclick="filter('trifork',this)">Trifork</button>
+        <button class="tab" onclick="filter('uzum',this)">Uzum Bank</button>
+        <button class="tab" onclick="filter('palli',this)">PALLI GROUP</button>
+        <button class="tab" onclick="filter('fincube',this)">Fincube</button>
+        <button class="tab" onclick="filter('freelance',this)">Freelance</button>
+        <button class="tab" onclick="filter('personal',this)">Personal</button>
+        <button class="tab" onclick="filter('oss',this)">Open Source</button>
+      </div>
+      <div class="pg" id="pg">
+
+        <!-- HELVETIA -->
+        <div class="gc pc rv" data-cat="helvetia">
+          <div class="pt">
+            <div class="ai ld" id="i-smile"><span>🛡️</span></div>
+            <div class="pm"><div class="pco">Helvetia Baloise Group</div><div class="pn">Smile Insurance App</div></div>
+          </div>
+          <p class="pd">Insurance super-app serving 210K+ monthly active users. Delivered Rewards Payout service end-to-end — Kotlin backend, KMP + SwiftUI mobile, Novesca CRM integration, fraud detection layer.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">SwiftUI</span><span class="ptag">KMP</span><span class="ptag">Spring Boot</span></div><a href="https://apps.apple.com/ch/app/smile-app/id1472474281" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <!-- TRIFORK -->
+        <div class="gc pc rv" data-cat="trifork">
+          <div class="pt">
+            <div class="ai" style="background:linear-gradient(135deg,#0d2137,#0071e3)">✈️</div>
+            <div class="pm"><div class="pco">Trifork AG</div><div class="pn">iFly4 — Aviation MR Training</div></div>
+          </div>
+          <p class="pd">Immersive mixed-reality training for Apple Vision Pro — 5,500+ SWISS + Edelweiss crew. Led full system design. ARKit spatial anchoring, ML gesture recognition. Showcased at WAF2025.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Vision Pro</span><span class="ptag">ARKit</span><span class="ptag">Metal</span></div><a href="https://trifork.com/?cases=enhancing-flight-crew-efficiency-and-compliance-with-edelweiss-airs-flypad-application" target="_blank" class="sl">Case Study <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="trifork">
+          <div class="pt">
+            <div class="ai" style="background:linear-gradient(135deg,#091c35,#1565c0)">🛫</div>
+            <div class="pm"><div class="pco">Trifork AG</div><div class="pn">FlyPad — Flight Operations</div></div>
+          </div>
+          <p class="pd">Large-scale ops platform for 4,700+ SWISS and 800+ Edelweiss crew. Migrated 15-year Objective-C legacy to modular Swift — achieved 37% faster feature delivery.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">macOS</span><span class="ptag">Obj-C</span></div><a href="https://trifork.com" target="_blank" class="sl">Trifork <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <!-- UZUM -->
+        <div class="gc pc rv" data-cat="uzum">
+          <div class="pt">
+            <div class="ai ld" id="i-uzum"><span>🏦</span></div>
+            <div class="pm"><div class="pco">Uzum Bank JSCB</div><div class="pn">Uzum Bank Online</div></div>
+          </div>
+          <p class="pd">Flagship banking platform for 5.9M+ monthly active users across Central Asia. NFC + KYC identity verification in Swift/C++ reduced onboarding by 45%. Modular DDD/TDD architecture.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">UIKit</span><span class="ptag">C++</span><span class="ptag">NFC</span></div><a href="https://apps.apple.com/us/app/uzum-bank-online/id1492307726" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="uzum">
+          <div class="pt">
+            <div class="ai ld" id="i-kapital"><span>💳</span></div>
+            <div class="pm"><div class="pco">Uzum Bank JSCB</div><div class="pn">Kapitalbank Online</div></div>
+          </div>
+          <p class="pd">Full-featured mobile banking for Kapitalbank — one of Uzbekistan's major financial institutions. Secure services with Swift, UIKit, CoreData and modular architecture.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">UIKit</span><span class="ptag">CoreData</span></div><a href="https://apps.apple.com/uz/app/kapitalbank-online/id1546213356" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <!-- FINCUBE -->
+        <div class="gc pc rv" data-cat="fincube">
+          <div class="pt">
+            <div class="ai ld" id="i-fincube"><span>💰</span></div>
+            <div class="pm"><div class="pco">Fincube</div><div class="pn">Apex Mobile Online Bank</div></div>
+          </div>
+          <p class="pd">Digital banking app providing modern financial services — account management, transactions, and digital payments for everyday banking.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">Fintech</span><span class="ptag">Security</span></div><a href="https://apps.apple.com/uz/app/apex-mobile-online-bank/id6469687454" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <!-- PALLI -->
+        <div class="gc pc rv" data-cat="palli">
+          <div class="pt">
+            <div class="ai ld" id="i-pulse"><span>❤️</span></div>
+            <div class="pm"><div class="pco">PALLI GROUP LLC</div><div class="pn">Pulse Check — Heart Rate</div></div>
+          </div>
+          <p class="pd">Real-time heart rate monitoring app — part of a 13-app ecosystem serving 190K+ monthly users generating $233K+ MRR with cross-platform C++ infrastructure.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">SwiftUI</span><span class="ptag">HealthKit</span><span class="ptag">watchOS</span></div><a href="https://apps.apple.com/xk/app/pulse-check-heart-rate-monitor/id1601648793" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="palli">
+          <div class="pt">
+            <div class="ai ld" id="i-darwin"><span>🎨</span></div>
+            <div class="pm"><div class="pco">PALLI GROUP LLC</div><div class="pn">DARWIN AI Art Generator</div></div>
+          </div>
+          <p class="pd">AI-powered image generation with machine learning. Cross-platform C++ infrastructure for database storage and networking layers shared across platforms.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">AI/ML</span><span class="ptag">C++</span></div><a href="https://apps.apple.com/xk/app/darwin-ai-art-generator-paint/id1643135381" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="palli">
+          <div class="pt">
+            <div class="ai ld" id="i-fontmaker"><span>🔤</span></div>
+            <div class="pm"><div class="pco">PALLI GROUP LLC</div><div class="pn">Fontmaker — Custom Keyboard</div></div>
+          </div>
+          <p class="pd">Custom keyboard extension enabling stylized fonts across all iOS apps. Unique typography experience powered by CoreText and keyboard API.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">Keyboard Ext</span><span class="ptag">CoreText</span></div><a href="https://apps.apple.com/xk/app/fontmaker-custom-keyboard-app/id1589821772" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <!-- FREELANCE -->
+        <div class="gc pc rv" data-cat="freelance">
+          <div class="pt">
+            <div class="ai ld" id="i-tele"><span>🎙️</span></div>
+            <div class="pm"><div class="pco">Freelance</div><div class="pn">Teleprompter — Captions</div></div>
+          </div>
+          <p class="pd">Professional teleprompter for content creators and presenters. Smooth scrolling captions with customizable speed, fonts, and script management.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">AVFoundation</span></div><a href="https://apps.apple.com/us/app/teleprompter-captions/id6670697259" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="freelance">
+          <div class="pt">
+            <div class="ai ld" id="i-ticket"><span>🎫</span></div>
+            <div class="pm"><div class="pco">Freelance</div><div class="pn">BSC YB Ticket App</div></div>
+          </div>
+          <p class="pd">Ticket management for BSC Young Boys — enabling fans to purchase, manage and display event tickets on iOS with Wallet integration.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">Wallet</span></div><a href="https://apps.apple.com/uz/app/bsc-yb-ticket-app/id6445913164" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="freelance">
+          <div class="pt">
+            <div class="ai ld" id="i-rel"><span>💕</span></div>
+            <div class="pm"><div class="pco">Freelance</div><div class="pn">My Love — Relationship Tracker</div></div>
+          </div>
+          <p class="pd">Relationship tracker helping couples celebrate milestones, log memories and stay connected — anniversary countdowns, shared journaling features.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">SwiftUI</span><span class="ptag">CloudKit</span></div><a href="https://apps.apple.com/uz/app/my-lov%D0%B5-relationship-tracker/id6445838894" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="freelance">
+          <div class="pt">
+            <div class="ai ld" id="i-trans"><span>🌐</span></div>
+            <div class="pm"><div class="pco">Freelance</div><div class="pn">Voice Language Translator Pro</div></div>
+          </div>
+          <p class="pd">Real-time voice translation supporting multiple languages. Speech recognition + translation APIs for instant spoken language conversion on the go.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">Speech</span><span class="ptag">NLP</span></div><a href="https://apps.apple.com/uz/app/voice-language-translator-pro/id1271407618" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="freelance">
+          <div class="pt">
+            <div class="ai ld" id="i-remote"><span>📺</span></div>
+            <div class="pm"><div class="pco">Freelance</div><div class="pn">Smart Remote Control for TVs</div></div>
+          </div>
+          <p class="pd">Universal remote for smart TVs. Network-based and IR control for multiple brands with an intuitive gesture-driven interface and device discovery.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">Network</span><span class="ptag">IR</span></div><a href="https://apps.apple.com/uz/app/smart-remote-control-for-tvs/id6469695903" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="freelance">
+          <div class="pt">
+            <div class="ai ld" id="i-tvcom"><span>🎬</span></div>
+            <div class="pm"><div class="pco">Freelance</div><div class="pn">TVCom — Films, Series & TV</div></div>
+          </div>
+          <p class="pd">Entertainment discovery for films, series and live TV. Rich content browsing with personalized recommendations and seamless streaming integrations.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">UIKit</span><span class="ptag">REST</span></div><a href="https://apps.apple.com/uz/app/tvcom-films-series-tv/id6479690034" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="freelance">
+          <div class="pt">
+            <div class="ai ld" id="i-pdf"><span>📄</span></div>
+            <div class="pm"><div class="pco">Freelance</div><div class="pn">PDF Merge — Combine PDFs</div></div>
+          </div>
+          <p class="pd">Utility for merging, combining and joining PDFs directly on iOS. Fast, clean interface for organizing documents on the go.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">PDFKit</span></div><a href="https://apps.apple.com/uz/app/pdf-merge-combine-join-pdf/id1585688820" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <!-- PERSONAL -->
+        <div class="gc pc rv" data-cat="personal">
+          <div class="pt">
+            <div class="ai ld" id="i-momenti"><span>🎯</span></div>
+            <div class="pm"><div class="pco">Personal App</div><div class="pn">Momenti — Goals Tracker PRO</div></div>
+          </div>
+          <p class="pd">Habit and goal tracking making daily self-improvement engaging. Gamified UI for building lasting habits and tracking personal milestones.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">SwiftUI</span><span class="ptag">CloudKit</span></div><a href="https://apps.apple.com/us/app/momenti-goals-tracker-pro/id6758632942" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="personal">
+          <div class="pt">
+            <div class="ai ld" id="i-payrate"><span>💼</span></div>
+            <div class="pm"><div class="pco">Personal App</div><div class="pn">PayRateBro — Salary Rate</div></div>
+          </div>
+          <p class="pd">Salary and pay rate calculator comparing hourly, daily, and annual rates. Useful for freelancers and employees evaluating compensation across currencies.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">SwiftUI</span><span class="ptag">Finance</span></div><a href="https://apps.apple.com/us/app/payratebro-salary-rate/id6757570554" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <div class="gc pc rv" data-cat="personal">
+          <div class="pt">
+            <div class="ai ld" id="i-fontmine"><span>✏️</span></div>
+            <div class="pm"><div class="pco">Personal App</div><div class="pn">Custom Font Maker Keyboard</div></div>
+          </div>
+          <p class="pd">Keyboard extension for creating custom cursive and fancy fonts across all iOS apps. Unique typography for personal expression.</p>
+          <div class="pf"><div class="ptags"><span class="ptag">Swift</span><span class="ptag">CoreText</span><span class="ptag">Keyboard</span></div><a href="https://apps.apple.com/us/app/custom-font-maker-keyboard/id6443762725" target="_blank" class="sl">App Store <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a></div>
+        </div>
+
+        <!-- OPEN SOURCE -->
+        <div class="gc oc rv" data-cat="oss">
+          <div class="oh"><div class="oi">🛡️</div><div><div class="on">Sentinel-CPP</div><div class="ol">C++ · Open Source</div></div></div>
+          <p class="od">Distributed system resilience patterns library — circuit breakers, rate limiters, and retry policies for production-grade microservices.</p>
+          <a href="https://github.com/azizbekasadov/Sentinel-CPP" target="_blank" class="olink">github.com/azizbekasadov/Sentinel-CPP <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a>
+        </div>
+
+        <div class="gc oc rv" data-cat="oss">
+          <div class="oh"><div class="oi">🖼️</div><div><div class="on">unsplash-sample</div><div class="ol">Swift · Open Source</div></div></div>
+          <p class="od">iOS sample app demonstrating clean architecture, async image loading, and Unsplash API integration with Swift Concurrency and modern SwiftUI patterns.</p>
+          <a href="https://github.com/azizbekasadov/unsplash-sample" target="_blank" class="olink">github.com/azizbekasadov/unsplash-sample <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a>
+        </div>
+
+        <div class="gc oc rv" data-cat="oss">
+          <div class="oh"><div class="oi">🍅</div><div><div class="on">pomodoro</div><div class="ol">Swift · Open Source</div></div></div>
+          <p class="od">Minimalist Pomodoro timer for iOS — clean SwiftUI architecture, background timers, and session analytics for focused productivity.</p>
+          <a href="https://github.com/azizbekasadov/pomodoro" target="_blank" class="olink">github.com/azizbekasadov/pomodoro <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M2 10L10 2M10 2H5.5M10 2V6.5"/></svg></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="sec">
+  <div class="si">
+    <span class="ey">Career</span>
+    <h2 class="sh rv">Work Experience</h2>
+    <div class="timeline">
+
+      <div class="gc exp rv">
+        <div class="eh"><div><div class="eco">Helvetia Baloise Group AG</div><div class="er">Sr. FullStack Software Engineer (iOS, Android, Java Spring Boot)</div><div class="eloc">📍 Zurich, Switzerland</div></div><span class="epe">Jan 2026 – Present</span></div>
+        <ul class="el">
+          <li>Designed and implemented backend services using Kotlin and Java (Spring Boot) with OpenAPI-defined REST APIs, enabling integration of payment systems, rewards platforms, and digital insurance services.</li>
+          <li>Built and maintained cloud-native distributed systems using AWS, Docker, and microservice architecture, supporting secure authentication across Switzerland and Austria.</li>
+          <li>Delivered Rewards Payout service end-to-end — backend (Kotlin) and mobile (KMP + SwiftUI) — with Novesca CRM integration and automated fraud detection.</li>
+          <li>Introduced TDD/BDD, SonarQube-based quality controls, and Liquibase database versioning, improving release reliability.</li>
+          <li>Contributed to the Smile Insurance ecosystem serving 210K+ monthly active users.</li>
+        </ul>
+      </div>
+
+      <div class="gc exp rv">
+        <div class="eh"><div><div class="eco">Trifork AG</div><div class="er">Sr. Software Engineer (iOS, macOS, CV, Spatial Computing)</div><div class="eloc">📍 Zurich, Switzerland</div></div><span class="epe">Mar 2024 – Nov 2025</span></div>
+        <ul class="el">
+          <li>Led system design and development of iFly4 — immersive mixed-reality training for Apple Vision Pro deployed across Swiss International Air Lines and Edelweiss Air — showcased at WAF2025.</li>
+          <li>Leveraged ARKit world-tracking and spatial anchoring for real-time 3D environment registration; integrated ML-based gesture recognition for spatially-aware procedural simulations.</li>
+          <li>Developed and maintained flight operations platform used by 4,700+ SWISS cabin crew and 800+ Edelweiss crew to manage onboard services.</li>
+          <li>Modernized a 15-year legacy Objective-C aviation platform to modular Swift architecture with concurrency support.</li>
+          <li>Migrated monolith toward service-oriented architecture enabling 37% faster feature delivery across multiple engineering teams.</li>
+        </ul>
+      </div>
+
+      <div class="gc exp rv">
+        <div class="eh"><div><div class="eco">PALLI GROUP LLC</div><div class="er">Mobile Software Engineer (iOS, Android)</div><div class="eloc">📍 Walnut Creek, CA, USA</div></div><span class="epe">Apr 2021 – Jul 2023</span></div>
+        <ul class="el">
+          <li>Delivered 13+ cross-platform applications across iOS, macOS, watchOS and Android — 190K+ monthly active users and $233K+ MRR.</li>
+          <li>Designed cross-platform C++ system components for database storage and networking layers, enabling shared infrastructure across mobile platforms.</li>
+          <li>Developed low-level libraries including CoreAudio Obj-C++ wrapper and custom concurrency utilities in C for system calls and media file optimization.</li>
+        </ul>
+      </div>
+
+      <div class="gc exp rv">
+        <div class="eh"><div><div class="eco">Uzum Bank JSCB</div><div class="er">Mobile Software Engineer (iOS, Android)</div><div class="eloc">📍 Tashkent, Uzbekistan</div></div><span class="epe">Oct 2019 – Mar 2021</span></div>
+        <ul class="el">
+          <li>Developed and launched flagship banking platform for 5.9M+ monthly active users across Central Asia — Swift, UIKit, XCTest, CoreData, modular DDD/TDD architecture.</li>
+          <li>Implemented NFC + KYC identity verification workflows reducing customer onboarding time by 45%.</li>
+          <li>Built NFC card reading and passport verification in C++ with Objective-C++ wrappers for high-security biometric authentication.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="sec altbg">
+  <div class="si">
+    <span class="ey">Education</span>
+    <h2 class="sh rv">Academic Background</h2>
+    <div class="edu-g">
+      <div class="gc educard rv"><span class="edu-em">🎓</span><div class="edu-d">M.Sc. Artificial Intelligence & Machine Learning</div><div class="edu-i">University of Zurich / ETH Zurich</div><div class="edu-p">Sept 2023 – Jul 2025 · Zurich</div></div>
+      <div class="gc educard rv"><span class="edu-em">📊</span><div class="edu-d">Diploma of Advanced Studies in Data Science & ML</div><div class="edu-i">ETH Zurich</div><div class="edu-p">Sept 2024 – Dec 2025 · Zurich</div></div>
+      <div class="gc educard rv"><span class="edu-em">💻</span><div class="edu-d">B.Sc. Computer Science</div><div class="edu-i">INHA University</div><div class="edu-p">Sept 2016 – Sept 2020 · Incheon, South Korea</div></div>
+      <div class="gc educard rv" style="border-color:rgba(0,113,227,.32)"><span class="edu-em">🥽</span><div class="edu-d">Master Thesis: Bidirectional Sign Language Translation in Mixed Reality</div><div class="edu-i">ETH Zurich / University of Zurich</div><div class="edu-p">Feb – Jul 2025 · 29 sign languages · Apple Vision Pro</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec">
+  <div class="si">
+    <span class="ey">Contact</span>
+    <h2 class="sh rv">Let's Connect</h2>
+    <div class="cg">
+      <div class="rv">
+        <p class="cblurb">Open to senior iOS, Android, and full-stack engineering roles in Zurich and Switzerland. Feel free to reach out for opportunities, collaborations, or just to connect with a fellow engineer.</p>
+        <div class="clinks">
+          <a href="https://linkedin.com/in/azizbek1402" target="_blank" class="gc cl"><div class="cico">💼</div><div><div class="clabel">LinkedIn</div><div class="csub">linkedin.com/in/azizbek1402</div></div></a>
+          <a href="https://github.com/azizbekasadov" target="_blank" class="gc cl"><div class="cico">🐙</div><div><div class="clabel">GitHub</div><div class="csub">github.com/azizbekasadov</div></div></a>
+          <a href="https://apps.apple.com/us/developer/azizbek-asadov/id1447770540" target="_blank" class="gc cl"><div class="cico">🍎</div><div><div class="clabel">App Store Profile</div><div class="csub">Azizbek Asadov — Developer</div></div></a>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="gc cform">
+          <h3>Send a message</h3>
+          <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
+          <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+          <div class="fg"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell me about the opportunity or project..."></textarea></div>
+          <button class="sbtn" onclick="sendForm(this)">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Azizbek Asadov &nbsp;·&nbsp; Mobile Software Engineer &nbsp;·&nbsp; Zurich, Switzerland</p>
+  <p style="margin-top:4px">Built with Swift in the heart &nbsp;🍎</p>
+</footer>
+
+<script>
+/* THEME */
+function toggleTheme(){
+  document.documentElement.dataset.theme =
+    document.documentElement.dataset.theme==='dark'?'light':'dark';
+}
+
+/* HAMBURGER */
+function toggleMob(){
+  document.querySelector('.hb').classList.toggle('open');
+  document.getElementById('mob').classList.toggle('open');
+}
+function closeMob(){
+  document.querySelector('.hb').classList.remove('open');
+  document.getElementById('mob').classList.remove('open');
+}
+
+/* FILTER */
+function filter(cat,btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#pg>[data-cat]').forEach(c=>{
+    c.style.display=(cat==='all'||c.dataset.cat===cat)?'':'none';
+  });
+}
+
+/* REVEAL */
+const io=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in'),(i%5)*55);
+  });
+},{threshold:.07,rootMargin:'0px 0px -28px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ACTIVE NAV */
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id});
+  links.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+
+/* FORM */
+function sendForm(btn){
+  btn.textContent='Sent ✓';btn.style.background='#30d158';
+  setTimeout(()=>{btn.textContent='Send Message';btn.style.background='';},3000);
+}
+
+/* LOAD APP ICONS via iTunes API (browser fetch, CORS supported) */
+const ICONS=[
+  {id:'i-smile',       appId:'1472474281'},
+  {id:'i-uzum',        appId:'1492307726'},
+  {id:'i-kapital',     appId:'1546213356'},
+  {id:'i-fincube',     appId:'6469687454'},
+  {id:'i-pulse',       appId:'1601648793'},
+  {id:'i-darwin',      appId:'1643135381'},
+  {id:'i-fontmaker',   appId:'1589821772'},
+  {id:'i-tele',        appId:'6670697259'},
+  {id:'i-ticket',      appId:'6445913164'},
+  {id:'i-rel',         appId:'6445838894'},
+  {id:'i-trans',       appId:'1271407618'},
+  {id:'i-remote',      appId:'6469695903'},
+  {id:'i-tvcom',       appId:'6479690034'},
+  {id:'i-pdf',         appId:'1585688820'},
+  {id:'i-momenti',     appId:'6758632942'},
+  {id:'i-payrate',     appId:'6757570554'},
+  {id:'i-fontmine',    appId:'6443762725'},
+];
+
+function setIcon(el, url, name){
+  const img=new Image();
+  img.onload=()=>{
+    el.innerHTML='';
+    img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:13.95px;display:block';
+    el.appendChild(img);
+    el.classList.remove('ld');
+  };
+  img.onerror=()=>el.classList.remove('ld');
+  img.src=url;
+  img.alt=name||'';
+}
+
+async function loadIcons(){
+  const BATCH=6;
+  for(let i=0;i<ICONS.length;i+=BATCH){
+    const batch=ICONS.slice(i,i+BATCH);
+    const ids=batch.map(a=>a.appId).join(',');
+    try{
+      const r=await fetch(
+        `https://itunes.apple.com/lookup?id=${ids}&entity=software&country=us`,
+        {mode:'cors',cache:'force-cache'}
+      );
+      if(!r.ok){batch.forEach(a=>{const e=document.getElementById(a.id);if(e)e.classList.remove('ld')});continue;}
+      const d=await r.json();
+      d.results.forEach(item=>{
+        const m=batch.find(a=>String(a.appId)===String(item.trackId));
+        if(!m)return;
+        const el=document.getElementById(m.id);
+        if(!el)return;
+        /* Build high-res icon URL from artworkUrl100 pattern */
+        let url=item.artworkUrl512||item.artworkUrl100||'';
+        if(url) url=url.replace(/\/\d+x\d+bb\./,'/512x512bb.');
+        if(url) setIcon(el,url,item.trackName);
+        else el.classList.remove('ld');
+      });
+    }catch(e){
+      batch.forEach(a=>{const el=document.getElementById(a.id);if(el)el.classList.remove('ld')});
+    }
+    if(i+BATCH<ICONS.length) await new Promise(r=>setTimeout(r,350));
+  }
+}
+
+window.addEventListener('load',loadIcons);
+</script>
+</body>
+</html>
